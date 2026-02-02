@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+E-Commerce.ai
 
-## Getting Started
+AI-Augmented Full-Stack E-Commerce Platform
 
-First, run the development server:
+A production-style, full-stack e-commerce application built end-to-end to demonstrate real-world backend engineering, database design, API development, and applied AI integration.
+Designed, implemented, and deployed using modern tools and free-tier infrastructure.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+E-Commerce.ai is not a mock UI or tutorial project.
+It is a working system with persistent data, server-side APIs, and AI used as a data-enrichment layer.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application supports:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ -A live product catalog backed by a relational database.
+ -Dynamic product detail pages.
+ -An internal admin dashboard.
+ -AI-generated product descriptions that are persisted and reused.
+ -Public deployment with production-style architecture.
 
-## Learn More
+Product Catalog
 
-To learn more about Next.js, take a look at the following resources:
+ -Server-rendered product listing.
+ -Dynamic product detail routes.
+ -Data fetched directly from PostgreSQL via server components.
+ -Admin Dashboard.
+ -Internal admin interface.
+ -Trigger AI operations for individual products
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+AI-Powered Product Descriptions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ -Admin selects a product ID.
+ -Backend fetches product metadata from the database.
+ -Groq LLM generates a concise, marketing-ready description.
+ -Generated content is stored in the database.
+ -Product pages automatically reflect updated content.
 
-## Deploy on Vercel
+Data Flow:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ -Products are seeded into PostgreSQL.
+ -Frontend renders data using server components. 
+ -Admin triggers AI generation for a product.
+ -Backend calls Groq LLM with structured prompt.
+ -AI output is validated and persisted.
+ -Updated description is reused across all views.
