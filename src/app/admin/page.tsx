@@ -5,8 +5,8 @@ import { useState } from "react";
 export default function AdminPage() {
   const [productId, setProductId] = useState("1");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [result, setResult] = useState("");
+  const [error, setError] = useState("");
 
   async function generateDescription() {
     setLoading(true);
@@ -45,7 +45,6 @@ export default function AdminPage() {
           value={productId}
           onChange={(e) => setProductId(e.target.value)}
           className="w-full rounded-md border px-3 py-2"
-          placeholder="e.g. 1"
         />
 
         <button
@@ -56,18 +55,13 @@ export default function AdminPage() {
           {loading ? "Generating..." : "Generate AI Description"}
         </button>
 
-        {error ? (
-          <p className="text-sm text-red-500">Error: {error}</p>
-        ) : null}
+        {error && <p className="text-sm text-red-500">{error}</p>}
 
-        {result ? (
+        {result && (
           <div className="rounded-md border p-4">
-            <h2 className="font-medium">Generated Description</h2>
-            <p className="mt-2 whitespace-pre-wrap text-sm text-gray-700">
-              {result}
-            </p>
+            <p className="text-sm whitespace-pre-wrap">{result}</p>
           </div>
-        ) : null}
+        )}
       </div>
     </main>
   );
