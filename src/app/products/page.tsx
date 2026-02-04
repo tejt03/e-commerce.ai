@@ -26,38 +26,44 @@ export default async function ProductsPage() {
   const products = (data ?? []) as Product[];
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-semibold">Products</h1>
+  <main className="mx-auto max-w-6xl px-4 py-8">
+    <h1 className="text-2xl font-semibold tracking-tight">Products</h1>
+    <p className="mt-1 text-sm text-gray-500">
+      Browse our curated product selection
+    </p>
 
-      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((p) => (
-          <div
-            key={p.id}
-            className="rounded-lg border p-4 hover:shadow-sm transition"
-          >
+    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((p) => (
+        <a
+          key={p.id}
+          href={`/products/${p.id}`}
+          className="group rounded-xl border bg-white p-4 transition hover:shadow-md"
+        >
+          <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
             {p.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={p.image_url}
                 alt={p.title}
-                className="h-40 w-full object-cover rounded-md"
+                className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
-            ) : (
-              <div className="h-40 w-full rounded-md bg-gray-100" />
-            )}
-
-            <div className="mt-3">
-              <a className="font-medium underline" href={`/products/${p.id}`}>
-                {p.title}
-              </a>
-              <p className="text-sm text-gray-500">
-                {p.category ?? "Uncategorized"}
-              </p>
-              <p className="mt-2 font-semibold">${p.price}</p>
-            </div>
+            ) : null}
           </div>
-        ))}
-      </div>
-    </main>
-  );
+
+          <div className="mt-4 space-y-1">
+            <h2 className="line-clamp-1 text-sm font-medium">
+              {p.title}
+            </h2>
+            <p className="text-xs text-gray-500">
+              {p.category ?? "Uncategorized"}
+            </p>
+            <p className="pt-1 text-sm font-semibold">
+              ${p.price}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+);
 }
