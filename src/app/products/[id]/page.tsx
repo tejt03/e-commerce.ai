@@ -46,47 +46,59 @@ export default async function ProductDetailPage({
     );
   }
 
-  const p = data as Product;
+  const product = data as Product;
 
   return (
-    <main className="p-8 max-w-3xl mx-auto">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          {p.image_url ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={p.image_url}
-              alt={p.title}
-              className="w-full rounded-lg object-cover"
-            />
-          ) : (
-            <div className="h-64 w-full rounded-lg bg-gray-100" />
-          )}
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+        {/* Image */}
+        <div className="rounded-2xl border bg-white p-6">
+          <div className="aspect-square overflow-hidden rounded-xl bg-gray-100">
+            {product.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={product.image_url}
+                alt={product.title}
+                className="h-full w-full object-cover"
+              />
+            ) : null}
+          </div>
         </div>
 
-        <div>
-          <h1 className="text-2xl font-semibold">{p.title}</h1>
-          <p className="mt-2 text-sm text-gray-500">
-            {p.category ?? "Uncategorized"}
-          </p>
+        {/* Details */}
+        <div className="space-y-6">
+          <div>
+            <p className="text-sm text-gray-500">{product.category}</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+              {product.title}
+            </h1>
+          </div>
 
-          <p className="mt-4 text-xl font-semibold">${p.price}</p>
+          <div className="flex items-center gap-3">
+            <p className="text-2xl font-semibold">${product.price}</p>
+            {product.brand ? (
+              <span className="rounded-full border px-3 py-1 text-xs text-gray-600">
+                Brand: {product.brand}
+              </span>
+            ) : null}
+          </div>
 
-          <div className="mt-4 text-sm text-gray-600 space-y-1">
-            <p>
-              <span className="font-medium">Brand:</span> {p.brand ?? "N/A"}
-            </p>
-            <p>
-              <span className="font-medium">Rating:</span> {p.rating ?? "N/A"}
-            </p>
-            <p>
-              <span className="font-medium">Stock:</span> {p.stock ?? "N/A"}
+          <div className="rounded-2xl border bg-white p-6">
+            <h2 className="text-sm font-medium text-gray-700">Description</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-700">
+              {product.description || "No description available."}
             </p>
           </div>
 
-          <p className="mt-6 text-gray-700 whitespace-pre-wrap">
-            {p.description ?? "No description available."}
-          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button className="rounded-xl bg-black px-5 py-3 text-sm font-medium text-white hover:bg-black/90">
+              Add to cart
+            </button>
+          </div>
+
+          <div className="text-xs text-gray-500">
+            Rating: {product.rating ?? "N/A"} • Stock: {product.stock ?? "N/A"}
+          </div>
         </div>
       </div>
     </main>
