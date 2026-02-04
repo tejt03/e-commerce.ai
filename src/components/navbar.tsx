@@ -2,17 +2,17 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
-          E-Commerce.ai
+        <Link href="/" className="text-lg font-semibold tracking-tight text-sky-700 hover:text-blue-800">
+          E-Commerce AI
         </Link>
 
         <nav className="flex items-center gap-4 text-sm">
-          <Link href="/products" className="text-gray-700 hover:text-black">
+          <Link href="/products" className="text-slate-700 hover:text-slate-900">
             Products
           </Link>
-          <Link href="/admin" className="text-gray-700 hover:text-black">
+          <Link href="/admin" className="text-slate-700 hover:text-slate-900">
             Admin
           </Link>
         </nav>
