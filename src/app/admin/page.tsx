@@ -35,34 +35,74 @@ export default function AdminPage() {
     }
   }
 
-  return (
-    <main className="p-8 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
+ return (
+  <main className="mx-auto max-w-3xl px-4 py-10">
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Admin</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Internal tool for enriching product descriptions.
+        </p>
+      </div>
+      <span className="rounded-full border px-3 py-1 text-xs text-gray-600">
+        AI Tools
+      </span>
+    </div>
 
-      <div className="mt-6 space-y-3">
-        <label className="block text-sm font-medium">Product ID</label>
-        <input
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          className="w-full rounded-md border px-3 py-2"
-        />
+    <div className="mt-8 rounded-2xl border bg-white p-6">
+      <h2 className="text-sm font-medium text-gray-700">
+        Generate your Product's Description here
+      </h2>
+      <p className="mt-1 text-sm text-gray-500">
+        Enter the product's ID to generate a concise, high quality description and save it to the database.
+      </p>
+
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <div className="flex-1">
+          <label className="block text-xs font-medium text-gray-600">
+            Product ID
+          </label>
+          <input
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+            className="mt-1 w-full rounded-xl border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10"
+            placeholder="e.g. 20"
+          />
+        </div>
 
         <button
           onClick={generateDescription}
           disabled={loading}
-          className="rounded-md border px-4 py-2"
+          className="rounded-xl bg-black px-5 py-2.5 text-sm font-medium text-white hover:bg-black/90 disabled:opacity-60"
         >
-          {loading ? "Generating..." : "Generate AI Description"}
+          {loading ? "Generating..." : "Generate"}
         </button>
-
-        {error && <p className="text-sm text-red-500">{error}</p>}
-
-        {result && (
-          <div className="rounded-md border p-4">
-            <p className="text-sm whitespace-pre-wrap">{result}</p>
-          </div>
-        )}
       </div>
-    </main>
-  );
+
+      {error ? (
+        <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          {error}
+        </div>
+      ) : null}
+
+      {result ? (
+        <div className="mt-5 rounded-xl border bg-gray-50 p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-xs font-medium text-gray-600">
+              The new AI Generated Description:
+            </p>
+          </div>
+          <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-gray-800">
+            {result}
+          </p>
+        </div>
+      ) : null}
+    </div>
+
+    <div className="mt-6 text-xs text-gray-500">
+      Tip: After generating, open <span className="font-medium">/products/{productId}</span>{" "}
+      to confirm the updated description is visible to users.
+    </div>
+  </main>
+);
 }
