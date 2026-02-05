@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import { supabaseServer } from "@/lib/supabase-server";
 import AdminClient from "@/components/AdminClient";
