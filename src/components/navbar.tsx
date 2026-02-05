@@ -1,4 +1,6 @@
 import Link from "next/link";
+import UserMenu from "@/components/UserMenu";
+
 
 export default function Navbar() {
   return (
@@ -15,18 +17,12 @@ export default function Navbar() {
           <Link href="/admin" className="rounded-full bg-amber-300 px-4 py-2 font-semibold text-white-500 ring-1 ring-blue-200 hover:bg-amber-500">
             Admin
           </Link>
-          <Link href="/login" className="rounded-full bg-white/80 px-4 py-2 font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-white">
-            Login
-          </Link>
         </nav>
 
-        <div className="hidden md:block">
-          <input
-            className="w-64 rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10"
-            placeholder="Search products…"
-          />
+        <div className="flex items-center gap-3">
+            <UserMenu />
+          </div>
         </div>
-      </div>
     </header>
   );
 }
