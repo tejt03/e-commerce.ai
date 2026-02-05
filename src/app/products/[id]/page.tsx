@@ -48,6 +48,23 @@ export default async function ProductDetailPage({
 
   const product = data as Product;
 
+  //products recommendation section
+  const { data: relatedData } = await supabase
+  .from("products")
+  .select("id, title, price, category, image_url")
+  .eq("category", product.category)
+  .neq("id", product.id)
+  .limit(8);
+
+  const related = (relatedData ?? []) as Array<{
+  id: number;
+  title: string;
+  price: number;
+  category: string | null;
+  image_url: string | null;
+  }>;
+
+
  return (
   <main className="min-h-screen">
     <section className="mx-auto max-w-6xl px-4 py-10">
@@ -120,6 +137,58 @@ export default async function ProductDetailPage({
             </p>
           </div>
         </div>
+
+        {related.length ? (
+          
+  <div className="mt-10">
+    <div className="flex items-end justify-between">
+      <h2 className="text-lg font-semibold text-slate-900">
+        Recommended for you
+      </h2>
+      <p className="text-xs text-slate-500">
+        Based on category: {product.category}
+      </p>
+    </div>
+
+    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      {related.map((p) => (
+        <a
+          key={p.id}
+          href={`/products/${p.id}`}
+          className="group rounded-xl border bg-white/90 p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+        >
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
+            {p.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={p.image_url}
+                alt={p.title}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : null}
+
+            <div className="absolute left-2 top-2 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+              {p.category ?? "Uncategorized"}
+            </div>
+          </div>
+
+          <div className="mt-3 space-y-2">
+            <p className="line-clamp-2 text-sm font-medium text-slate-900">
+              {p.title}
+            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-bold text-blue-600">${p.price}</p>
+              <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-medium text-white transition group-hover:bg-blue-700">
+                View
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+) : null}
+
       </div>
     </section>
   </main>
