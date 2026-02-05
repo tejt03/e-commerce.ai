@@ -48,12 +48,13 @@ export default async function ProductDetailPage({
 
   const product = data as Product;
 
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+ return (
+  <main className="min-h-screen">
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Image */}
-        <div className="rounded-2xl border bg-white p-6">
-          <div className="aspect-square overflow-hidden rounded-xl bg-gray-100">
+        <div className="rounded-2xl border bg-white/90 p-4 shadow-sm">
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
             {product.image_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -62,45 +63,66 @@ export default async function ProductDetailPage({
                 className="h-full w-full object-cover"
               />
             ) : null}
+
+            <div className="absolute left-3 top-3 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
+              {product.category}
+            </div>
           </div>
         </div>
 
-        {/* Details */}
-        <div className="space-y-6">
-          <div>
-            <p className="text-sm text-gray-500">{product.category}</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-              {product.title}
-            </h1>
-          </div>
+        {/* Buy box */}
+        <div className="space-y-5">
+          <h1 className="text-2xl font-semibold text-slate-900">
+            {product.title}
+          </h1>
 
-          <div className="flex items-center gap-3">
-            <p className="text-2xl font-semibold">${product.price}</p>
-            {product.brand ? (
-              <span className="rounded-full border px-3 py-1 text-xs text-gray-600">
-                Brand: {product.brand}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-2xl font-bold text-blue-600">
+              ${product.price}
+            </span>
+
+            {product.rating ? (
+              <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
+                ⭐ {product.rating} / 5
               </span>
             ) : null}
+
+            {product.stock ? (
+              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
+                In stock
+              </span>
+            ) : (
+              <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+                Out of stock
+              </span>
+            )}
           </div>
 
-          <div className="rounded-2xl border bg-white p-6">
-            <h2 className="text-sm font-medium text-gray-700">Description</h2>
-            <p className="mt-2 text-sm leading-6 text-gray-700">
+          <div className="rounded-2xl border bg-white/90 p-5 shadow-sm">
+            <p className="text-sm leading-6 text-slate-700">
               {product.description || "No description available."}
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button className="rounded-xl bg-black px-5 py-3 text-sm font-medium text-white hover:bg-black/90">
+            <button className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">
               Add to cart
+            </button>
+
+            <button className="flex-1 rounded-xl bg-amber-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-amber-300">
+              Buy now
             </button>
           </div>
 
-          <div className="text-xs text-gray-500">
-            Rating: {product.rating ?? "N/A"} • Stock: {product.stock ?? "N/A"}
+          <div className="rounded-xl border bg-white/80 p-4 text-xs text-slate-600">
+            <p>
+              Free delivery available • Secure checkout • Easy returns
+            </p>
           </div>
         </div>
       </div>
-    </main>
-  );
+    </section>
+  </main>
+);
+
 }
