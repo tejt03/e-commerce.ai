@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "@/lib/supabase-browser";
-
+//import { useRouter } from "next/navigation";
+//import { supabaseBrowser } from "@/lib/supabase-browser";
 
 
 
@@ -13,14 +12,14 @@ export default function AdminPage() {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
 
-  const router = useRouter();
-    const supabase = supabaseBrowser();
+  //const router = useRouter();
+    //const supabase = supabaseBrowser();
 
-    async function signOut() {
-        await supabase.auth.signOut();
-        router.push("/login");
-        router.refresh();
-    }
+    // async function signOut() {
+    //     await supabase.auth.signOut();
+    //     router.push("/login");
+    //     router.refresh();
+    // }
 
   async function generateDescription() {
     setLoading(true);
@@ -71,11 +70,6 @@ export default function AdminPage() {
           className="rounded-xl border bg-white/70 px-3 py-1 text-sm font-medium text-blue-700 hover:bg-blue-500 backdrop-blur">
           Back to Store
         </a>
-        <button 
-            onClick={signOut}
-            className="rounded-xl bg-slate-600 px-4 py-1 text-sm font-semibold text-white hover:bg-slate-800">
-            Logout
-        </button>
         </div>
     </div>
 
