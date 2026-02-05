@@ -1,11 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import type { CookieOptions } from "@supabase/ssr";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-const supabase = await supabaseServer();
-
-export async function supabaseServer() {
-  const cookieStore = await cookies();
-
+export function supabaseServer(cookieStore: ReadonlyRequestCookies) {
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,11 +14,10 @@ export async function supabaseServer() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
+              cookieStore.set(name, value, options as CookieOptions);
             });
           } catch {
-            // In some Next.js cases (like Server Components), set may be blocked.
-            // Middleware will handle session refresh.
+            // set can be blocked in some server component contexts; middleware can refresh
           }
         },
       },
