@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import ProductsClient from "@/components/ProductsClient";
+
 
 type Product = {
   id: number;
@@ -52,73 +54,8 @@ export default async function ProductsPage() {
             A modern storefront backed by Supabase and enhanced with AI-generated product descriptions. Built with Next.js + TypeScript + Tailwind.
           </p>
 
-          {/* Filters (UI only for now; next step will make them functional) */}
-          <div className="mt-8 grid gap-3 rounded-2xl border bg-white/80 p-4 backdrop-blur sm:grid-cols-3">
-            <input
-              className="w-full rounded-xl border px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-black/10"
-              placeholder="Search products…"
-            />
-            <select className="w-full rounded-xl border px-4 py-3 text-sm text-indigo-500 focus:outline-none focus:ring-2 focus:ring-black/10">
-              <option value="">All categories</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+          <ProductsClient products={products} categories={categories} />
 
-            <button className="rounded-xl bg-indigo-500 px-4 py-3 text-sm font-medium text-white hover:bg-sky-700">
-              Explore
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Grid */}
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight">Products</h2>
-          </div>
-          <p className="text-xs text-gray-500">{products.length} items</p>
-        </div>
-
-        <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
-          {products.map((p) => (
-            <Link
-              key={p.id}
-              href={`/products/${p.id}`}
-              className="group rounded-xl border bg-white/90 p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-              <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
-                {p.image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={p.image_url}
-                    alt={p.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : null}
-
-                <div className="absolute left-2 top-2 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-500">
-                  {p.category ?? "Uncategorized"}
-                </div>
-
-              </div>
-
-              <div className="mt-4 space-y-2">
-                <h3 className="line-clamp-2 text-sm font-medium text-slate-900">
-                  {p.title}
-                </h3>
-
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-semibold">${p.price}</p>
-                  <span className="rounded-full bg-blue-500 px-3 py-1 text-xs font-medium text-white transition group-hover:bg-blue-700">
-                    View
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
         </div>
       </section>
     </main>
