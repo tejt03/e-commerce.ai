@@ -6,11 +6,11 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/products" className="text-lg font-semibold tracking-tight text-sky-700 hover:text-blue-800">
-          E-Commerce AI
+        <Link href="/products" className="text-lg font-semibold tracking-tight text-blue-800 hover:text-indigo-800">
+          E-Commerce AI Shopping Assistant
         </Link>
 
-        <nav className="flex items-center gap-2 text-sm">
+        <nav className="flex items-center gap-3 text-sm">
           <Link href="/products" className="rounded-full bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-700">
             Products
           </Link>
@@ -18,6 +18,7 @@ export default function Navbar() {
             Admin
           </Link>
         </nav>
+
 
         <div className="flex items-center gap-3">
             <UserMenu />

@@ -60,7 +60,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/login"
-        className="rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-amber-300"
+        className="rounded-full bg-amber-300 px-4 py-2 text-sm font-semibold text-white-500 ring-1 ring-blue-200 hover:bg-amber-500"
       >
         Sign in
       </Link>
