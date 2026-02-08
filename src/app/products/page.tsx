@@ -16,7 +16,7 @@ export default async function ProductsPage() {
     .from("products")
     .select("id, title, price, category, image_url")
     .order("id", { ascending: true })
-    .limit(60);
+    .limit(100);
 
   if (error) {
     return (

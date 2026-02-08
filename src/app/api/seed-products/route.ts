@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 export async function POST() {
   try {
     // 1) Fetch products from DummyJSON
-    const res = await fetch("https://dummyjson.com/products?limit=30");
+    const res = await fetch("https://dummyjson.com/products?limit=100");
     if (!res.ok) {
       return NextResponse.json(
         { error: "Failed to fetch products from DummyJSON" },
