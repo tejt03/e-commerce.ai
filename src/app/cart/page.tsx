@@ -105,7 +105,7 @@ export default async function CartPage() {
           </div>
           <Link
             href="/products"
-            className="rounded-xl border bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
+            className="rounded-xl border bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-blue-500"
           >
             Continue shopping
           </Link>
@@ -199,12 +199,15 @@ export default async function CartPage() {
               </div>
             </div>
 
-            <button
-              disabled={items.length === 0}
-              className="mt-5 w-full rounded-xl bg-amber-400 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-amber-300 disabled:opacity-60"
-            >
-              Continue to payment
-            </button>
+            <Link
+                href="/checkout"
+                className={`mt-5 block w-full rounded-xl bg-amber-400 px-4 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-amber-500 ${
+                    items.length === 0 ? "pointer-events-none opacity-60" : ""
+                }`}
+                >
+                Continue to payment
+            </Link>
+
 
           </div>
         </div>
