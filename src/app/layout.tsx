@@ -33,10 +33,8 @@ export default function RootLayout({
           <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(244,63,94,0.10),transparent_55%)]">
             <Navbar />
             {children}
+            <ChatLauncher />
           </div>
-          <Navbar />
-          {children}
-          <ChatLauncher />
         </div>
       </body>
     </html>
