@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { supabase } from "@/lib/supabase";
+import AddToCartButton from "@/components/AddToCart";
+
 
 type Product = {
   id: number;
@@ -122,9 +124,10 @@ export default async function ProductDetailPage({
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">
+            <AddToCartButton productId={product.id} />
+            {/* <button className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">
               Add to cart
-            </button>
+            </button> */}
 
             <button className="flex-1 rounded-xl bg-amber-400 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-amber-300">
               Buy now
