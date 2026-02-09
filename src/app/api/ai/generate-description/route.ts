@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 1) Load product from Supabase
+    // Load product from Supabase
     const { data: product, error: fetchError } = await supabase
       .from("products")
       .select("id, title, category, brand, price, description")
@@ -32,10 +32,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2) Ask Groq to generate a better description
+    //Ask Groq to generate a better description
     const prompt = `
 Write a clean, persuasive e-commerce product description in 2 short paragraphs.
-No buzzwords. No emojis. No bullet points.
+No buzzwords. No emojis. No bullet points. Add a space between the paragraphs.
 Mention the product name, category, and brand if available.
 Keep it under 90 words.
 
@@ -63,7 +63,7 @@ Current description (may be bad): ${product.description ?? "N/A"}
       );
     }
 
-    // 3) Save back to Supabase
+    // Save back to Supabase
     const { error: updateError } = await supabase
       .from("products")
       .update({ description: newDescription })

@@ -28,7 +28,7 @@ export default async function ProductsPage() {
 
   const products: Product[] = (data ?? []) as Product[];
 
-  // Build a unique category list (server-side)
+  
   const categories = Array.from(
     new Set(products.map((p) => p.category).filter(Boolean))
   ).sort() as string[];
@@ -51,7 +51,7 @@ export default async function ProductsPage() {
             Shop smarter with E-Commerce AI
           </h1>
           <p className="mt-3 max-w-1xl text-sm leading-6 text-gray-600">
-            A modern storefront backed by Supabase and enhanced with AI-generated product descriptions. Built with Next.js + TypeScript + Tailwind.
+            A modern online store with an AI shopping assistant and smart AI-generated product descriptions.
           </p>
 
           <ProductsClient products={products} categories={categories} />

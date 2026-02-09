@@ -21,7 +21,7 @@ export default function LoginPage() {
   async function onSubmit(e: React.FormEvent) {
   e.preventDefault();
   setError("");
-  setSuccess(""); // add: const [success, setSuccess] = useState("")
+  setSuccess(""); 
   setLoading(true);
 
   try {
@@ -50,7 +50,6 @@ export default function LoginPage() {
         throw error;
       }
 
-      // Success UX: show message, switch to sign-in, then redirect to /login
       setSuccess("Account created. Please sign in.");
       setMode("signin");
       setPassword("");
@@ -70,7 +69,7 @@ export default function LoginPage() {
 
     if (error) throw error;
 
-    router.push("/admin");
+    router.push("/products");
     router.refresh();
   } catch (err: any) {
     setError(err?.message ?? "Something went wrong");
@@ -87,9 +86,6 @@ export default function LoginPage() {
             <h1 className="text-xl font-semibold text-slate-900">
               {mode === "signin" ? "Sign in" : "Create account"}
             </h1>
-            <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
-              Supabase Auth
-            </span>
           </div>
 
           <p className="mt-2 text-sm text-slate-600">

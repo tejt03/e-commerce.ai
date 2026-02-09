@@ -5,7 +5,14 @@ import { cookies } from "next/headers";
 import { supabaseServer } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 
-export default async function CheckoutSuccessPage() {
+export default async function CheckoutSuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const buyNow = sp.buyNow === "1";
+
   const cookieStore = await cookies();
   const supabase = supabaseServer(cookieStore);
 
@@ -14,16 +21,17 @@ export default async function CheckoutSuccessPage() {
 
   if (!user) redirect("/login");
 
-  // Find user's cart
-  const { data: cart } = await supabase
-    .from("carts")
-    .select("id")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  // Only clear cart for normal cart checkout (not Buy Now)
+  if (!buyNow) {
+    const { data: cart } = await supabase
+      .from("carts")
+      .select("id")
+      .eq("user_id", user.id)
+      .maybeSingle();
 
-  // Clear cart items
-  if (cart?.id) {
-    await supabase.from("cart_items").delete().eq("cart_id", cart.id);
+    if (cart?.id) {
+      await supabase.from("cart_items").delete().eq("cart_id", cart.id);
+    }
   }
 
   return (
@@ -39,7 +47,7 @@ export default async function CheckoutSuccessPage() {
           </h1>
 
           <p className="mt-2 text-sm text-slate-600">
-            This is a demo checkout. Your cart has been cleared.
+            {buyNow ? "Thank you for your purchase." : "Thank You for your purchse. Your cart has been cleared."}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">

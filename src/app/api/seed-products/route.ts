@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 
 export async function POST() {
   try {
-    // 1) Fetch products from DummyJSON
+    // Fetch products from DummyJSON
     const res = await fetch("https://dummyjson.com/products?limit=100");
     if (!res.ok) {
       return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST() {
       stock: p.stock,
     }));
 
-    // 2) Insert into Supabase (upsert avoids duplicates if you run it twice)
+    // Insert into Supabase (upsert avoids duplicates)
     const { error } = await supabase
       .from("products")
       .upsert(products, { onConflict: "id" });

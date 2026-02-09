@@ -128,12 +128,8 @@ export default async function ProductDetailPage({
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <AddToCartButton productId={product.id} />
-            {/* <button className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700">
-              Add to cart
-            </button> */}
-
             <Link
-              href="/checkout"
+              href={`/checkout?buyNow=1&productId=${product.id}&qty=1`}
               className="flex-1 rounded-xl bg-amber-400 px-5 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-amber-300">
               Buy now
             </Link>
@@ -167,7 +163,6 @@ export default async function ProductDetailPage({
         >
           <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
             {p.image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={p.image_url}
                 alt={p.title}

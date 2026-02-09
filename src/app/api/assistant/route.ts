@@ -398,11 +398,11 @@ const CATEGORY_SYNONYMS: Record<string, string[]> = {
 function resolveCategory(message: string, categories: string[]) {
   const t = message.toLowerCase();
 
-  // 1) exact match on category string
+  // exact match on category string
   const direct = categories.find((c) => t.includes(c.toLowerCase()));
   if (direct) return direct;
 
-  // 2) synonym match -> return canonical category if it exists in DB
+  // synonym match -> return canonical category if it exists in DB
   for (const [canonical, synonyms] of Object.entries(CATEGORY_SYNONYMS)) {
     if (synonyms.some((s) => t.includes(s))) {
       const match = categories.find(c => c.toLowerCase() === canonical.toLowerCase());
@@ -436,14 +436,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
-    // 1) Save user message
+    // Save user message
     await supabase.from("chat_messages").insert({
       user_id: user.id,
       role: "user",
       content: message,
     });
 
-    // 2) Load a bit of chat history (last 12 messages)
+    // Load a bit of chat history (last 12 messages)
     const { data: historyRows } = await supabase
       .from("chat_messages")
       .select("role, content, created_at")
@@ -464,7 +464,7 @@ export async function POST(req: Request) {
       new Set((catRows ?? []).map((r: any) => r.category).filter(Boolean))
     ) as string[];
 
-    // 3) Pull relevant products (cheap heuristic)
+    // Pull relevant products (cheap heuristic)
     const keywords = extractKeywords(message);
     const budgetMax = extractBudgetMax(message);
     const catHint = resolveCategory(message,categories);
@@ -493,12 +493,6 @@ export async function POST(req: Request) {
     let { data: productsData } = await q;
     let products = (productsData ?? []) as ProductLite[];
 
-    // Fallback: if too few results, widen search
-    // STRICT fallback sequence:
-    // 1) category+budget+keywords (already done above)
-    // 2) if too few, retry category+budget only (no keywords)
-    // 3) if still none, return "not found" (no Groq call)
-
     if (products.length < 8) {
       let q2 = supabase
         .from("products")
@@ -512,7 +506,6 @@ export async function POST(req: Request) {
       products = (d2 ?? []) as ProductLite[];
     }
 
-    // Hard stop if still nothing after strict fallback
     if (products.length === 0) {
       const msg =
       catHint && budgetMax != null
@@ -536,7 +529,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // 4) Call Groq (OpenAI-compatible)
+  
 const system = `
 You are an AI shopping assistant for an e-commerce site.
 You must recommend ONLY from the provided product list.
@@ -626,7 +619,7 @@ Return STRICT JSON with this shape:
     .filter((r: any) => r.reason.length >= 12);
 
 
-    // 5) Save assistant message
+    // Save assistant message
     await supabase.from("chat_messages").insert({
       user_id: user.id,
       role: "assistant",

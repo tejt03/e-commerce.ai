@@ -19,7 +19,6 @@ type CartRow = {
 };
 
 export default async function CartPage() {
-  // Load cart items via API route is possible too, but SSR is cleaner here:
     const cookieStore = await cookies();
     const supabase = supabaseServer(cookieStore);
 
@@ -133,7 +132,7 @@ export default async function CartPage() {
                     >
                       <div className="h-20 w-20 overflow-hidden rounded-xl bg-gray-100">
                         {p.image_url ? (
-                          // eslint-disable-next-line @next/next/no-img-element
+                    
                           <img
                             src={p.image_url}
                             alt={p.title}
@@ -231,7 +230,7 @@ export default async function CartPage() {
                 >
                   <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
                     {p.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
+                      
                       <img
                         src={p.image_url}
                         alt={p.title}
