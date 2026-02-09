@@ -1,13 +1,12 @@
 🛒 E-Commerce AI Shopping Assistant
 
 - A modern full-stack e-commerce application enhanced with AI features.
-- Users can create an account, browse products, view personalized recommendations, manage a cart, and - ask for suggestions using an AI chatbot assistant.
+- Users can create an account, browse products, view personalized recommendations, manage a cart, and ask for suggestions using an AI chatbot assistant.
 - Admins can modify product descriptions with a single prompt through an AI-powered description generator, making content updates fast and efficient.
 
 This project demonstrates how AI can be integrated into real product workflows, not just demos.
 
 🚀 Live Demo
-
 👉 Production URL: https://e-commerceai.vercel.app
 
 ✨ Key Features:-
