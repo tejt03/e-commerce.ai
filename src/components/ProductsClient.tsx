@@ -60,7 +60,7 @@ export default function ProductsClient({
             setQuery("");
             setCategory("");
           }}
-          className="rounded-xl bg-amber-400 px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-amber-300"
+          className="rounded-xl bg-amber-400 px-4 py-3 text-sm font-semibold border-2 border-black text-black hover:bg-amber-500"
         >
           Clear filters
         </button>

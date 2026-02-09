@@ -37,7 +37,7 @@ export default function AssistantClient() {
     setInput("");
     setLoading(true);
 
-    // Next step: we’ll replace this stub with a real API call to Groq + Supabase
+    
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,

@@ -86,7 +86,7 @@ export default function ChatLauncher() {
 
       const payload = data as AssistantPayload;
 
-      // Cache products returned by /api/assistant so titles/images are available immediately
+      
     const returnedProducts = Array.isArray(data.products) ? (data.products as ProductCard[]) : [];
 
     if (returnedProducts.length) {
@@ -147,6 +147,14 @@ export default function ChatLauncher() {
 
   return (
     <>
+      {/* Helper bubble */}
+        <div className="fixed bottom-24 right-4 z-50">
+            <div className="relative max-w-max rounded-[28px] border-2 border-black bg-sky-400 px-3 py-3 text-xs text-black">
+                <span className="whitespace-nowrap">How can I help you?</span>
+                <span className="absolute -bottom-3 right-4 h-0 w-0 border-l-15 border-r-15 border-t-12 border-l-transparent border-r-transparent border-t-blue" />
+            </div>
+        </div>
+
       {/* Floating Button */}
       <button
         onClick={() => setOpen(true)}
@@ -174,7 +182,7 @@ export default function ChatLauncher() {
             <div className="flex items-center justify-between border-b px-4 py-5">
               <div>
                 <p className="text-md font-semibold text-slate-900">
-                  AI Shopping Assistant
+                  AI Chatbot
                 </p>
                 <p className="text-[13px] text-slate-500">
                   Ask for recommendations from this store
@@ -182,12 +190,6 @@ export default function ChatLauncher() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Link
-                  href="/admin"
-                  className="hidden sm:inline rounded-full bg-slate-900 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-800"
-                >
-                  Admin 
-                </Link>
                 <button
                 onClick={() => setOpen(false)}
                 aria-label="Close"

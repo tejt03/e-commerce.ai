@@ -1,25 +1,12 @@
 "use client";
 
 import { useState } from "react";
-//import { useRouter } from "next/navigation";
-//import { supabaseBrowser } from "@/lib/supabase-browser";
-
-
 
 export default function AdminPage() {
   const [productId, setProductId] = useState("1");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
-
-  //const router = useRouter();
-    //const supabase = supabaseBrowser();
-
-    // async function signOut() {
-    //     await supabase.auth.signOut();
-    //     router.push("/login");
-    //     router.refresh();
-    // }
 
   async function generateDescription() {
     setLoading(true);
@@ -58,16 +45,16 @@ export default function AdminPage() {
             Admin Console
           </p>
           <h1 className="mt-3 text-2xl font-semibold text-slate-900">
-            Product AI Tools
+            AI Product Description Generator
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            Generate and persist improved product descriptions using Groq.
+            Improve your product descriptions easily using Groq.
           </p>
         </div>
         <div className="flex items-center gap-3">
         <a
           href="/products"
-          className="rounded-xl border bg-white/70 px-3 py-1 text-sm font-medium text-blue-700 hover:bg-blue-500 backdrop-blur">
+          className="rounded-xl border bg-white/70 px-3 py-1 text-sm font-medium text-black hover:bg-blue-400">
           Back to Store
         </a>
         </div>
@@ -78,16 +65,15 @@ export default function AdminPage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-sm font-semibold text-slate-800">
-              Generate AI Product Description
+              Improvise your product's description using this tool
             </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Enter a product ID. The result is saved to Supabase and will show
-              up on the product page.
+              Enter a product ID below and click on generate.
             </p>
           </div>
 
           <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-            Writes to DB
+            Saves directly to store
           </span>
         </div>
 
@@ -114,7 +100,7 @@ export default function AdminPage() {
 
           <a
             href={`/products/${productId}`}
-            className="rounded-xl bg-amber-400 px-5 py-2.5 text-center text-sm font-semibold text-slate-900 hover:bg-amber-300"
+            className="rounded-xl bg-amber-300 px-5 py-2.5 text-center text-sm font-semibold text-black hover:bg-amber-400"
           >
             View Product
           </a>
@@ -142,14 +128,13 @@ export default function AdminPage() {
           </div>
         ) : (
           <div className="mt-5 rounded-2xl border bg-white/70 p-5 text-sm text-slate-600">
-            Run generation to see output here.
+            Your new description will appear here.
           </div>
         )}
       </div>
 
       <div className="mt-6 text-xs text-slate-600">
-        Tip: Use a product ID from <span className="font-semibold">/products</span>.
-        This page is for internal demo purposes.
+        Tip: The product ID can be found on the product details page .
       </div>
     </section>
   </main>

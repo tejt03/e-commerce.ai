@@ -36,10 +36,10 @@ export default function Navbar() {
         </Link>
 
         <nav className="flex items-center gap-3 text-sm">
-          <Link href="/products" className="rounded-full bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-700">
+          <Link href="/products" className="rounded-full bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700">
             Products
           </Link>
-          <Link href="/admin" className="rounded-full bg-amber-300 px-4 py-2 font-semibold text-white-500 ring-1 ring-blue-200 hover:bg-amber-500">
+          <Link href="/admin" className="rounded-full bg-amber-300 px-4 py-2 font-semibold text-black hover:bg-amber-400">
             Admin
           </Link>
         </nav>

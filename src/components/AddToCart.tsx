@@ -1,15 +1,16 @@
 "use client";
 
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function AddToCartButton({ productId }: { productId: number }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
-  const [added, setAdded] = useState(false);
 
-  async function add() {
+  async function addToCart() {
     if (loading) return;
     setLoading(true);
-    setAdded(false);
 
     try {
       const res = await fetch("/api/cart/add", {
@@ -18,16 +19,16 @@ export default function AddToCartButton({ productId }: { productId: number }) {
         body: JSON.stringify({ productId, quantity: 1 }),
       });
 
-      const data = await res.json();
+      // If not signed in → send to login, then come back here
+      if (res.status === 401) {
+        router.push(`/login?next=${encodeURIComponent(pathname)}`);
+        return;
+      }
 
-      if (!res.ok) throw new Error(data?.error ?? "Add to cart failed");
+      if (!res.ok) return;
 
-      // Tell Navbar to refresh badge
-      window.dispatchEvent(new Event("cart:updated"));
-      setAdded(true);
-    } catch (e) {
-      // optional: you can show toast later
-      console.error(e);
+      // update cart badge 
+      window.dispatchEvent(new Event("cart:changed"));
     } finally {
       setLoading(false);
     }
@@ -35,11 +36,11 @@ export default function AddToCartButton({ productId }: { productId: number }) {
 
   return (
     <button
-      onClick={add}
+      onClick={addToCart}
       disabled={loading}
       className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
     >
-      {loading ? "Adding..." : added ? "Added ✓" : "Add to cart"}
+      {loading ? "Adding..." : "Add to cart"}
     </button>
   );
 }
