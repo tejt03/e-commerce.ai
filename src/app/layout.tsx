@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import ChatLauncher from "@/components/ChatLauncher";
+ 
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="min-h-screen text-slate-900">
+        <div className="min-h-screen bg-linear-to-br from-sky-150 via-white to-rose-150">
+          <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_55%),radial-gradient(ellipse_at_bottom,rgba(244,63,94,0.10),transparent_55%)]">
+            <Navbar />
+            {children}
+            <ChatLauncher />
+          </div>
+        </div>
       </body>
     </html>
   );
 }
+

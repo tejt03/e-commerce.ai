@@ -1,68 +1,19 @@
-"use client";
+export const dynamic = "force-dynamic";
 
-import { useState } from "react";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { supabaseServer } from "@/lib/supabase-server";
+import AdminClient from "@/components/AdminClient";
 
-export default function AdminPage() {
-  const [productId, setProductId] = useState("1");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState("");
-  const [error, setError] = useState("");
+export default async function AdminPage() {
+  const cookieStore = await cookies();
+  const supabase = supabaseServer(cookieStore);
 
-  async function generateDescription() {
-    setLoading(true);
-    setError("");
-    setResult("");
+  const { data } = await supabase.auth.getUser();
 
-    try {
-      const res = await fetch("/api/ai/generate-description", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: Number(productId) }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data?.error ?? "Request failed");
-        return;
-      }
-
-      setResult(data.description);
-    } catch (e: any) {
-      setError(e?.message ?? "Unknown error");
-    } finally {
-      setLoading(false);
-    }
+  if (!data.user) {
+    redirect("/login");
   }
 
-  return (
-    <main className="p-8 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
-
-      <div className="mt-6 space-y-3">
-        <label className="block text-sm font-medium">Product ID</label>
-        <input
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          className="w-full rounded-md border px-3 py-2"
-        />
-
-        <button
-          onClick={generateDescription}
-          disabled={loading}
-          className="rounded-md border px-4 py-2"
-        >
-          {loading ? "Generating..." : "Generate AI Description"}
-        </button>
-
-        {error && <p className="text-sm text-red-500">{error}</p>}
-
-        {result && (
-          <div className="rounded-md border p-4">
-            <p className="text-sm whitespace-pre-wrap">{result}</p>
-          </div>
-        )}
-      </div>
-    </main>
-  );
+  return <AdminClient />;
 }

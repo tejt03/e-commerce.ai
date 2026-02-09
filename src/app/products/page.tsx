@@ -1,4 +1,7 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import ProductsClient from "@/components/ProductsClient";
+
 
 type Product = {
   id: number;
@@ -12,52 +15,49 @@ export default async function ProductsPage() {
   const { data, error } = await supabase
     .from("products")
     .select("id, title, price, category, image_url")
-    .order("id", { ascending: true });
+    .order("id", { ascending: true })
+    .limit(100);
 
   if (error) {
     return (
-      <main className="p-8">
-        <h1 className="text-2xl font-semibold">Products</h1>
-        <p className="mt-4 text-red-500">Error: {error.message}</p>
+      <main className="mx-auto max-w-6xl px-4 py-10">
+        <p className="text-sm text-red-600">Failed to load products.</p>
       </main>
     );
   }
 
-  const products = (data ?? []) as Product[];
+  const products: Product[] = (data ?? []) as Product[];
+
+  
+  const categories = Array.from(
+    new Set(products.map((p) => p.category).filter(Boolean))
+  ).sort() as string[];
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-semibold">Products</h1>
+    <main className="min-h-screen">
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-linear-to-br from-indigo-50 via-white to-pink-50" />
+        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
 
-      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((p) => (
-          <div
-            key={p.id}
-            className="rounded-lg border p-4 hover:shadow-sm transition"
-          >
-            {p.image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={p.image_url}
-                alt={p.title}
-                className="h-40 w-full object-cover rounded-md"
-              />
-            ) : (
-              <div className="h-40 w-full rounded-md bg-gray-100" />
-            )}
+        <div className="relative mx-auto max-w-6xl px-4 py-12">
+          <p className="inline-flex items-center gap-2 rounded-full border bg-white/70 px-3 py-1 text-xs text-indigo-700">
+            <span className="h-2 w-2 rounded-full bg-green-500" />
+            Live catalog • AI-enriched descriptions
+          </p>
 
-            <div className="mt-3">
-              <a className="font-medium underline" href={`/products/${p.id}`}>
-                {p.title}
-              </a>
-              <p className="text-sm text-gray-500">
-                {p.category ?? "Uncategorized"}
-              </p>
-              <p className="mt-2 font-semibold">${p.price}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+            Shop smarter with E-Commerce AI
+          </h1>
+          <p className="mt-3 max-w-1xl text-sm leading-6 text-gray-600">
+            A modern online store with an AI shopping assistant and smart AI-generated product descriptions.
+          </p>
+
+          <ProductsClient products={products} categories={categories} />
+
+        </div>
+      </section>
     </main>
   );
 }
