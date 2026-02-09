@@ -47,7 +47,7 @@ export default async function CheckoutSuccessPage({
           </h1>
 
           <p className="mt-2 text-sm text-slate-600">
-            {buyNow ? "Thank you for your purchase." : "Thank You for your purchse. Your cart has been cleared."}
+            {buyNow ? "Thank you for your purchase." : "Thank You for your purchase. Your cart has been cleared."}
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
