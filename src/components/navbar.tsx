@@ -12,6 +12,10 @@ export default function Navbar() {
   async function refreshCartCount() {
     try {
       const res = await fetch("/api/cart/count", { cache: "no-store" });
+      if (!res.ok) {
+        setCartCount(0);
+        return;
+      }
       const data = await res.json();
       setCartCount(Number(data?.count ?? 0));
     } catch {

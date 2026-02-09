@@ -27,8 +27,8 @@ export default function AddToCartButton({ productId }: { productId: number }) {
 
       if (!res.ok) return;
 
-      // update cart badge 
-      window.dispatchEvent(new Event("cart:changed"));
+      // update cart badge if you have an event-based refresh
+      window.dispatchEvent(new Event("cart:updated"));
     } finally {
       setLoading(false);
     }
